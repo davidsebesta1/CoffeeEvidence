@@ -26,9 +26,15 @@ form {
     margin: 0 auto;
 }
 
+select{
+    margin-left: auto;
+}
+
 .emptyDiv {
     margin: 0px;
     padding: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 table {

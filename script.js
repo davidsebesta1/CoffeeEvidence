@@ -34,14 +34,14 @@ $(document).ready(function () {
 
 function generateButtons(data) {
     $.each(data, function (key, value) {
-        $("#namesRadio").append("<input type='radio' id='" + "name" + key + "' name='user' value='" + value["ID"] + "'/><label for='" + "name" + key + "'>" + value["name"] + "</label><br>");
+        $("#users").append("<option value='" + value["ID"] + "'>" + value["name"] + "</option><br>");
     });
 }
 
 function generateSliders(data) {
     $.each(data, function (key, value) {
-        $("#typesSliders").append("<div class='sliderDiv'><label for='" + "slider" + key + "'>" + value["typ"] + "</label><div class='sliderDiv'><label id='" + "slidertext" + key + "'>0</label><input type='range' min='0' max='10' value='0' class='slider' id='" + "slider" + key + "'></div></div><br>");
-
+        $("#typesSliders").append("<div class='sliderDiv'><label for='" + "slider" + key + "'>" + value["typ"] + "</label><div class='sliderDiv'><input type='number' min='0' max='99999' value='0' class='slider' id='" + "slider" + key + "'></div></div><br>");
+        
         let slider = document.getElementById("slider" + key);
         slider.addEventListener("input", function() {
             document.getElementById("slidertext" + key).innerText = slider.value;
@@ -52,8 +52,9 @@ function generateSliders(data) {
 
 function showList(event){
     event.preventDefault();
+    let monthId = parseInt($("#months").val());
     $.ajax({
-        url: "http://ajax1.lmsoft.cz/procedure.php?cmd=getSummaryOfDrinks",
+        url: "http://ajax1.lmsoft.cz/procedure.php?cmd=getSummaryOfDrinks" + (monthId == 0 ? "" : ("&month=" + monthId)),
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "Basic " + btoa("coffee:kafe"));
         },
