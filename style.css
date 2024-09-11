@@ -2,12 +2,16 @@
     display: flex;
     justify-content: space-between;
     align-content: center;
-    max-width: 80vw;
     max-height: 3vh;
+}
+
+.sliderDivRight{
+    width: 65%;
 }
 
 label {
     align-self: center;
+    font-size: 24px;
 }
 
 body {
@@ -20,14 +24,26 @@ body {
 }
 
 form {
-    min-width: 15%;
-    margin-left: 25px;
-    margin-right: 25px;
-    margin: 0 auto;
+    width: 90%;
+    margin: 0 20px;
 }
 
-select{
+input[type=number] {
+    height: auto;
+    width: 35vw;
+}
+
+.changeButton{
+    width: 20%;
+    margin-right: 1%;
+    font-size: 18px;
+    padding: 0px;
+}
+
+select {
     margin-left: auto;
+    height: auto;
+    width: 35vw;
 }
 
 .emptyDiv {
@@ -35,6 +51,12 @@ select{
     padding: 0px;
     display: flex;
     flex-direction: column;
+}
+
+.bottomDiv {
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
 }
 
 table {
@@ -53,4 +75,22 @@ th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+@media only screen and (min-width: 600px) {
+    form {
+        width: 40%;
+    }
+
+    select{
+        width: 15vw;
+    }
+
+    input[type=number] {
+        width: 14.5vw;
+    }
+
+    .plusButton{
+        width: 11%;
+    }
 }

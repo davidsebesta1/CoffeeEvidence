@@ -13,7 +13,7 @@ $(document).ready(function () {
             alert("Cannot get data");
         }
     });
-    
+
     $.ajax({
         url: "http://ajax1.lmsoft.cz/procedure.php?cmd=getTypesList",
         beforeSend: function (xhr) {
@@ -40,17 +40,29 @@ function generateButtons(data) {
 
 function generateSliders(data) {
     $.each(data, function (key, value) {
-        $("#typesSliders").append("<div class='sliderDiv'><label for='" + "slider" + key + "'>" + value["typ"] + "</label><div class='sliderDiv'><input type='number' min='0' max='99999' value='0' class='slider' id='" + "slider" + key + "'></div></div><br>");
-        
+        $("#typesSliders").append("<div class='sliderDiv'><label for='" + "slider" + key + "'>" + value["typ"] + "</label><div class='sliderDiv sliderDivRight'><button class='changeButton' id='" + "slider" + key + "btn" + "'>+</button><button class='changeButton' id='" + "slider" + key + "btnmin" + "'>-</button><input type='number' min='0' max='99999' value='0' class='slider' id='" + "slider" + key + "'></div></div><br>");
+
+        $("#slider" + key + "btn").on("click", function (event) {
+            event.preventDefault()
+            let input = $("#slider" + key)
+            input.val(parseInt(input.val()) + 1)
+        });
+
+        $("#slider" + key + "btnmin").on("click", function (event) {
+            event.preventDefault()
+            let input = $("#slider" + key)
+            input.val(parseInt(input.val()) - 1)
+        });
+
         let slider = document.getElementById("slider" + key);
-        slider.addEventListener("input", function() {
+        slider.addEventListener("input", function () {
             document.getElementById("slidertext" + key).innerText = slider.value;
-        }); 
-        
+        });
+
     });
 }
 
-function showList(event){
+function showList(event) {
     event.preventDefault();
     let monthId = parseInt($("#months").val());
     $.ajax({
@@ -62,7 +74,7 @@ function showList(event){
         dataType: 'json',
         contentType: 'application/json',
         processData: false,
-        success: function(data){
+        success: function (data) {
             $("#table").remove()
             $("body").append("<table id='table'><tr><th>Název</th><th>Jméno</th><th>Počet</th></tr></table>")
 
