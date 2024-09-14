@@ -30,8 +30,41 @@ $(document).ready(function () {
     });
 
     $("#listButton").on("click", showList);
+
+    $("#form").submit(submitForm);
 });
 
+function submitForm(event) {
+    event.preventDefault();
+
+    $.ajax({
+        type: "POST",
+        url: "http://ajax1.lmsoft.cz/procedure.php?cmd=saveDrinks",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + btoa("coffee:kafe"));
+        },
+        data: getFormPayload(),
+        success: function (data) {
+            alert(data);
+        },
+    });
+}
+
+
+function getFormPayload() {
+    json = [];
+
+    json.push({ name: "user", required: true, type: "radio", value: $("select").val() });
+
+    let inputs = $("input[type=number]");
+    $.each(inputs, function (key, val) {
+        json.push({ name: "type[]", required: false, type: "range", value: val.value })
+    })
+
+    return $.param(json);
+}
 function generateButtons(data) {
     $.each(data, function (key, value) {
         $("#users").append("<option value='" + value["ID"] + "'>" + value["name"] + "</option><br>");
