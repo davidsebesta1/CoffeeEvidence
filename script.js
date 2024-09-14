@@ -47,7 +47,7 @@ function submitForm(event) {
         },
         data: getFormPayload(),
         success: function (data) {
-            alert(data);
+            alert("Sent");
         },
     });
 }
